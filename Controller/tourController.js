@@ -4,7 +4,7 @@ const catchasync = require('./../Utils/catchAsync');
 
 exports.createTour = catchasync(async (req, res, next) => {
     const tour = await Tour.create(req.body);
-    res.status(200).json({
+    res.status(201).json({
         status: 'success',
         data: {
             tour
@@ -34,4 +34,22 @@ exports.getTour = catchasync(async (req, res, next) => {
         }
     });
 });
+
+exports.updateTour = catchasync(async (req, res, next) => {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!tour) {
+        return new AppError(`No Tour found with that ID!`, 404);
+    };
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            tour
+        }
+    })
+})
 
