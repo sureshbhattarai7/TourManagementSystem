@@ -64,5 +64,8 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     if (!user) {
         return next(new AppError(`Can not find user with that ID!`, 400));
     };
-    
-})
+    res.status(200).json({
+        status: 'success',
+        data: null
+    });
+});
